@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "lowhpwarning",
+  "version": "${version}",
+  "name": "Low HP Warning",
+  "description": "A compact current health warning below the crosshair.",
+  "environment": "client",
+  "entrypoints": { "modmenu": ["com.lowhpwarning.ModMenuIntegration"] },
+  "suggests": { "modmenu": ">=17.0.0" },
+  "mixins": ["lowhpwarning.client.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "1.21.11",
+    "java": ">=21"
+  }
+}

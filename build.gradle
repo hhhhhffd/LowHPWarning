@@ -1,0 +1,39 @@
+plugins {
+    id 'fabric-loom' version "${loom_version}"
+}
+version = project.mod_version
+group = 'com.lowhpwarning'
+loom {
+    splitEnvironmentSourceSets()
+    mods {
+        lowhpwarning {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+repositories {
+    maven { url = uri("https://maven.terraformersmc.com/releases") }
+}
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modCompileOnly("com.terraformersmc:modmenu:17.0.1") { transitive = false }
+}
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand 'version': project.version }
+}
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.encoding = 'UTF-8'
+}
